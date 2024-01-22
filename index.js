@@ -28,6 +28,20 @@ app.get("/", (req, res) => {
 	res.sendFile(process.cwd() + "/views/index.html");
 });
 
+app.post("/api/users", async (req, res) => {
+	const username = req.body.username;
+	const user = new User({
+		username: username,
+	});
+
+	let output = await user.save();
+
+	res.json({
+		username: output.username,
+		_id: output._id,
+	});
+});
+
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
 });
