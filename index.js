@@ -21,6 +21,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.static("public"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
 	res.sendFile(process.cwd() + "/views/index.html");
