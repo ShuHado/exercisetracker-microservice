@@ -61,6 +61,34 @@ app.get("/api/users", async (req, res) => {
 	res.json(users);
 });
 
+app.post("/api/users/:_id/exercises", async (req, res) => {
+	const _id = req.params._id;
+	const description = req.body.description;
+	const duration = req.body.duration;
+    let date;
+	if (req.body.date) {
+		date = new Date(req.body.date).toDateString();
+	} else {
+		date = new Date().toDateString();
+	}
+
+	const exercise = new Exercise({
+		description: description,
+		duration: duration,
+		date: date,
+	});
+
+	let output = await exercise.save();
+	let username = await User.findById(_id);
+	res.json({
+		username: username.username,
+		description: output.description,
+		duration: output.duration,
+		date: output.date.toDateString(),
+		_id: _id,
+	});
+});
+
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
 });
