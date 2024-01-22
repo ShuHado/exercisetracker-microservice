@@ -14,7 +14,20 @@ const usersSchema = new mongoose.Schema({
 	},
 });
 
+const exercisesSchema = new mongoose.Schema({
+	description: {
+		type: String,
+		required: true,
+	},
+	duration: {
+		type: Number,
+		required: true,
+	},
+	date: Date,
+});
+
 const User = mongoose.model("Users", usersSchema);
+const Exercise = mongoose.model("Exercises", exercisesSchema);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
