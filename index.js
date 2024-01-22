@@ -42,6 +42,12 @@ app.post("/api/users", async (req, res) => {
 	});
 });
 
+app.get("/api/users", async (req, res) => {
+	const users = await User.find({});
+
+	res.json(users);
+});
+
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
 });
